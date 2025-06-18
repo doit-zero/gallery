@@ -1,4 +1,6 @@
+<script src="services/accountService.js"></script>
 <script setup>
+import {check} from "@/services/accountService.js";
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import {useAccountStore} from "@/stores/account.js";
@@ -12,8 +14,14 @@ const accountStore = useAccountStore();
 const route = useRoute();
 
 // 로그인 여부 확인
-const checkAccount = async => {
-  // 추후 구현
+const checkAccount = async () => {
+  const res = await check();
+  if(res.status === 200){
+    accountStore.setChecked(true);
+    accountStore.setLoggedIn(true);
+  }else {
+    accountStore.setChecked(false);
+  }
 };
 
 // 커스텀 생성 훅
@@ -29,9 +37,11 @@ watch(()=> route.path, () => {
 </script>
 
 <template>
-  <Header />
-  <mai>
-    <router-view></router-view>
-  </mai>
-  <Footer />
+  <template v-if="accountStore.checked">
+    <Header />
+    <mai>
+      <router-view></router-view>
+    </mai>
+    <Footer />
+  </template>
 </template>
