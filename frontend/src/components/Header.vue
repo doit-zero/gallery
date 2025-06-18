@@ -1,7 +1,22 @@
 <script setup>
+import {useAccountStore} from "@/stores/account.js";
+import {logout} from "@/services/accountService.js";
+import {useRoute, useRouter} from "vue-router";
+
+// 계정 스토어
+const accountStore = useAccountStore();
+
+// 라우터 객체
+const router = useRouter();
+
 // 로그아웃
 const logoutAccount = async () => {
-  window.alert("준비 중입니다.");
+  const res = await logout();
+
+  if(res.status === 200){
+    accountStore.setLoggedIn(false);
+    await router.push("/"); // 로그아웃 성공시 메인 화면으로 이동
+  }
 };
 
 </script>
@@ -13,7 +28,7 @@ const logoutAccount = async () => {
         <strong>Gallery</strong>
       </router-link>
       <div class="menus d-flex gap-3">
-        <template v-if="true">
+        <template v-if="!accountStore.loggedIn">
           <router-link to="/login" class="navbar-brand">로그인</router-link>
           <router-link to="/join" class="navbar-brand">회원가입</router-link>
         </template>
