@@ -1,4 +1,3 @@
-<script src="services/accountService.js"></script>
 <script setup>
 import {check} from "@/services/accountService.js";
 import Header from "@/components/Header.vue";
@@ -18,7 +17,7 @@ const checkAccount = async () => {
   const res = await check();
   if(res.status === 200){
     accountStore.setChecked(true);
-    accountStore.setLoggedIn(true);
+    accountStore.setLoggedIn(res.data === true);
   }else {
     accountStore.setChecked(false);
   }
