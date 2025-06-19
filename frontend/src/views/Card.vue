@@ -1,7 +1,7 @@
 <script setup>
 import {computed} from "vue";
 
-// 프로퍼티 객체
+// 프로퍼티 객체 defineProps는 컴포넌트가 생성될 때 가장 먼저 실행 setUp함수 실행 전 컴파일 타임에 처리된다
 const props = defineProps({
   item: {
     id: Number,
