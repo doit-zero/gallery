@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component // 컨트롤러에서 사용해야 하므로 빈으로 등록 시켜야함
 @RequiredArgsConstructor
 public class SessionAccountHelper implements AccountHelper{
-    private MemberService memberService;
+    private final MemberService memberService;
     @Override
     public void join(AccountJoinRequest joinReq) {
         memberService.save(joinReq.getName(), joinReq.getLoginId(), joinReq.getLoginPw());
