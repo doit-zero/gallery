@@ -1,7 +1,7 @@
 <script setup>
-import {getItems} from "@/services/itemService.js";
 import {reactive} from "vue";
 import Card from "@/views/Card.vue";
+import {getItems} from "@/services/itemService.js";
 
 // 반응형 상태
 const state = reactive({
@@ -13,6 +13,7 @@ const state = reactive({
 
   if(res.status === 200){
     state.item = res.data;
+    console.log(res.data);
   }
 })();
 </script>

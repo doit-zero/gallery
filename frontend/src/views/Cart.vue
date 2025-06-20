@@ -1,5 +1,5 @@
 <script setup>
-import {getItems,removeItem} from "@/services/itemService.js";
+import {getItems,removeItem} from "@/services/cartService.js";
 import {reactive} from "vue";
 
 // 반응형 상태
