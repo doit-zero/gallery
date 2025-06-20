@@ -1,5 +1,8 @@
 <script setup>
+import {useRouter} from "vue-router";
 import {computed} from "vue";
+import {addItem} from "@/services/itemService.js";
+import router from "@/router/index.js";
 
 // 프로퍼티 객체 defineProps는 컴포넌트가 생성될 때 가장 먼저 실행 setUp함수 실행 전 컴파일 타임에 처리된다
 const props = defineProps({
@@ -19,7 +22,11 @@ const computedItemDiscountPrice = computed(() => {
 
 // 장바구니에 상품 담기
 const put = async () =>{
-  window.alert("준비 중입니다.");
+  const res  = await addItem(props.itemId);
+
+  if(res === 200 && window.confirm('장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?')){
+    await router.push("/cart");
+  }
 };
 </script>
 
