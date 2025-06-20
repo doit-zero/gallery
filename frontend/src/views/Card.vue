@@ -24,7 +24,7 @@ const computedItemDiscountPrice = computed(() => {
 const put = async () =>{
   const res  = await addItem(props.itemId);
 
-  if(res === 200 && window.confirm('장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?')){
+  if(res.status === 200 && window.confirm('장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?')){
     await router.push("/cart");
   }
 };
