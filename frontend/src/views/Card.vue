@@ -39,7 +39,7 @@ const put = async () =>{
         <!--상품 이름-->
         <span class="me-2">{{ props.item.name }}</span>
         <!-- 상품 할인율 -->
-        <span class="discount badge bg-danger">{{ props.item.discountPer }}</span>
+        <span class="discount badge bg-danger">{{ props.item.discountPer }}%</span>
       </p>
       <div class="d-flex justify-content-between align-ite-center">
         <button class="btn btn-primary btn-sm" @click="put()">장바구니 담기</button>
