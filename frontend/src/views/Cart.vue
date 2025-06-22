@@ -41,7 +41,7 @@ const remove = async (itemId) => {
             <img :alt="`상품 사진(${i.name})`" :src="i.imgPath"/>
             <b class="name">{{ i.name }}</b>
             <span class="price">
-              {{ (i.price - i.price + i.discountPer / 100).toLocaleString() }}원
+              {{ (i.price - i.price * i.discountPer / 100).toLocaleString() }}원
             </span>
             <span class="remove float-end" @click="remove(i.id)" title="삭제">&times;</span>
           </li>
@@ -50,7 +50,7 @@ const remove = async (itemId) => {
           <router-link to="/order" class="btn btn-primary">주문하기</router-link>
         </div>
       </template>
-      <div class="text-center py-5">장바구니가 비어있습니다.</div>
+      <div class="text-center py-5" v-else>장바구니가 비어있습니다.</div>
     </div>
   </div>
 </template>
