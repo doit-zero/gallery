@@ -10,6 +10,7 @@ import kr.co.wikibook.gallery.member.helper.AccountHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,7 +53,7 @@ public class CartController {
     }
 
     @DeleteMapping("/api/cart/items/{itemId}")
-    public ResponseEntity<?> remove(HttpServletRequest req,@PathVariable("itemID") Integer itemId){
+    public ResponseEntity<?> remove(HttpServletRequest req,@PathVariable("itemId") Integer itemId){
         // 로그인 회원 아이디
         Integer memberId = accountHelper.getMemberId(req);
 
