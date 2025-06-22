@@ -6,6 +6,7 @@ import kr.co.wikibook.gallery.cart.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,17 +34,20 @@ public class BaseCartService implements CartService{
 
     // 장바구니 상품 데이터 전체 삭제
     @Override
+    @Transactional
     public void removeAll(Integer memberId) {
         cartRepository.deleteByMemberId(memberId);
     }
 
     // 특정 회원의 장바구니에서 특정 상품 삭제
     @Override
+    @Transactional
     public void remove(Integer memberId, Integer itemId) {
         cartRepository.deleteByMemberIdAndItemId(memberId,itemId);
     }
 
     @Override
+    @Transactional
     public void save(Cart cart) {
         cartRepository.save(cart);
     }
