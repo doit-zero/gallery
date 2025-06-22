@@ -38,9 +38,9 @@ watch(()=> route.path, () => {
 <template>
   <template v-if="accountStore.checked">
     <Header />
-    <mai>
+    <main>
       <router-view></router-view>
-    </mai>
+    </main>
     <Footer />
   </template>
 </template>
