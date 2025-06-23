@@ -4,7 +4,6 @@ import kr.co.wikibook.gallery.cart.dto.CartRead;
 import kr.co.wikibook.gallery.cart.entity.Cart;
 import kr.co.wikibook.gallery.cart.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
