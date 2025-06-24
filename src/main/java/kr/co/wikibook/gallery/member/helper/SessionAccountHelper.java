@@ -7,7 +7,7 @@ import kr.co.wikibook.gallery.member.dto.AccountLoginRequest;
 import kr.co.wikibook.gallery.member.entity.Member;
 import kr.co.wikibook.gallery.account.etc.AccountConstants;
 import kr.co.wikibook.gallery.member.service.MemberService;
-import kr.co.wikibook.gallery.util.HttpUtils;
+import kr.co.wikibook.gallery.common.util.HttpUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
