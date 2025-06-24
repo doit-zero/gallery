@@ -11,3 +11,5 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+my_security:
+  key: ${SECURITY_KEY}
