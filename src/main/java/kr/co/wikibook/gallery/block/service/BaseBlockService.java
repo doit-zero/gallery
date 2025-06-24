@@ -18,6 +18,6 @@ public class BaseBlockService implements BlockService{
 
     @Override
     public boolean has(String token) {
-        return blockRepository.findbyToken(token).isPresent();
+        return blockRepository.findByToken(token).isPresent();
     }
 }
