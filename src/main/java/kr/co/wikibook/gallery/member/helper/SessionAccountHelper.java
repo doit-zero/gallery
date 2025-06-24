@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import kr.co.wikibook.gallery.member.dto.AccountJoinRequest;
 import kr.co.wikibook.gallery.member.dto.AccountLoginRequest;
 import kr.co.wikibook.gallery.member.entity.Member;
-import kr.co.wikibook.gallery.member.etc.AccountConstants;
+import kr.co.wikibook.gallery.account.etc.AccountConstants;
 import kr.co.wikibook.gallery.member.service.MemberService;
 import kr.co.wikibook.gallery.util.HttpUtils;
 import lombok.RequiredArgsConstructor;
