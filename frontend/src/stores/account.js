@@ -4,6 +4,7 @@ export const useAccountStore = defineStore("account", {
    state: () => ({
        checked: false,
        loggedIn: false,
+       accessToken: "",
    }),
 
     actions: {
@@ -12,6 +13,9 @@ export const useAccountStore = defineStore("account", {
        },
         setLoggedIn(val){
            this.loggedIn = val;
+        },
+        setAccessToken(val){
+           this.accessToken = val;
         }
     }
 });
