@@ -1,4 +1,4 @@
-package kr.co.wikibook.gallery.member.controller;
+package kr.co.wikibook.gallery.account.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
