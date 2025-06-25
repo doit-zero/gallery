@@ -2,6 +2,10 @@ package kr.co.wikibook.gallery.account.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import kr.co.wikibook.gallery.account.etc.AccountConstants;
+import kr.co.wikibook.gallery.block.service.BlockService;
+import kr.co.wikibook.gallery.common.util.HttpUtils;
+import kr.co.wikibook.gallery.common.util.TokenUtils;
 import kr.co.wikibook.gallery.member.dto.AccountJoinRequest;
 import kr.co.wikibook.gallery.member.dto.AccountLoginRequest;
 import kr.co.wikibook.gallery.member.helper.AccountHelper;
@@ -11,11 +15,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1")
 public class AccountController {
     private final AccountHelper accountHelper;
+    private final BlockService blockService;
 
     @PostMapping("/api/account/join")
     public ResponseEntity<?> join(@RequestBody AccountJoinRequest joinReq){
@@ -52,5 +59,27 @@ public class AccountController {
     public ResponseEntity<?> logout(HttpServletRequest req,HttpServletResponse res){
         accountHelper.logout(req,res);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    // 리프레시 토큰을 통해 액세스 토큰 재발급
+    @GetMapping("/api/account/token")
+    public ResponseEntity<?> regenerate(HttpServletRequest req){
+        String accessToken = "";
+        String refreshToken = HttpUtils.getCookieValue(req, AccountConstants.REFRESH_TOKEN_NAME);
+
+        // 리프레시 토큰이 유효하다면
+        if(StringUtils.hasLength(refreshToken) && TokenUtils.isValid(refreshToken) && !blockService.has(refreshToken)){
+            // 리프레시 토큰의 내부 값 조회
+            Map<String,Object> tokenBody = TokenUtils.getBody(refreshToken);
+
+             // 리프레시 토큰의 회원 아이디 조회
+             Integer memberId = (Integer) tokenBody.get(AccountConstants.MEMBER_ID_NAME);
+
+             // 액세스 토큰 발급
+            TokenUtils.generate(AccountConstants.ACCESS_TOKEN_NAME,AccountConstants.MEMBER_ID_NAME,memberId,AccountConstants.ACCESS_TOKEN_MINUTES);
+        }
+        return new ResponseEntity<>(accessToken,HttpStatus.OK);
+
+        //
     }
 }
