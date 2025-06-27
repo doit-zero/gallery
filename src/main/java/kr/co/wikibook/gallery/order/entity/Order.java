@@ -27,7 +27,7 @@ public class Order {
     @Column(length = 10,nullable = false)
     private String payment;
 
-    @Column(length = 50)
+    @Column(length = 16)
     private String cardNumber;
 
     @Column(nullable = false)
