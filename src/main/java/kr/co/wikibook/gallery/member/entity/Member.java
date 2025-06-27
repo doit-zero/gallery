@@ -34,9 +34,10 @@ public class Member {
     public Member() {
     }
 
-    public Member(String name, String loginId, String loginPw) {
+    public Member(String name, String loginId, String loginPw, String loginPwSalt) {
         this.name = name;
         this.loginId = loginId;
         this.loginPw = loginPw;
+        this.loginPwSalt = loginPwSalt;
     }
 }
