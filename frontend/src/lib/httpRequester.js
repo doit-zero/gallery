@@ -28,7 +28,7 @@ instance.interceptors.response.use((res) => {
             const accountStore = useAccountStore();
 
             // 계정 스토어의 액세스 토큰 변경
-            accountStore.setAccessToken(useAccountStore);
+            accountStore.setAccessToken(accessToken);
 
             //요청 액세스 토큰 교체
             config.headers.authorization = `Bearer ${accountStore.accessToken}`;
@@ -68,12 +68,12 @@ export default {
         return instance.get(url,config);
     },
     post(url,params){
-        return instance.post(url,generateConfig());
+        return instance.post(url,params,generateConfig());
     },
     put(url,params){
-        return instance.put(url,generateConfig());
+        return instance.put(url,params,generateConfig());
     },
     delete(url,params){
-        return instance.delete(url,generateConfig());
+        return instance.delete(url,params,generateConfig());
     }
 }

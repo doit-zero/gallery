@@ -16,10 +16,9 @@ import java.util.Map;
 public class TokenUtils {
     private static final Key signKey;
 
-    @Value("${my_security.key}")
-    private static String secretKey;
 
     static {
+        String secretKey = "gallery_2025_2024_2023_sjanskehwoalTsms!!rhdnqek#$%";
         byte[] secretKeyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
         signKey = new SecretKeySpec(secretKeyBytes, SignatureAlgorithm.HS256.getJcaName());
     }
