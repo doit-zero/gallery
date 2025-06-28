@@ -9,6 +9,7 @@ import kr.co.wikibook.gallery.common.util.TokenUtils;
 import kr.co.wikibook.gallery.member.dto.AccountJoinRequest;
 import kr.co.wikibook.gallery.member.dto.AccountLoginRequest;
 import kr.co.wikibook.gallery.member.helper.AccountHelper;
+import kr.co.wikibook.gallery.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import java.util.Map;
 public class AccountController {
     private final AccountHelper accountHelper;
     private final BlockService blockService;
+    private final MemberService memberService;
 
     @PostMapping("/api/account/join")
     public ResponseEntity<?> join(@RequestBody AccountJoinRequest joinReq){
@@ -30,6 +32,11 @@ public class AccountController {
         System.out.println(joinReq.toString());
         if(!StringUtils.hasLength(joinReq.getName()) || !StringUtils.hasLength(joinReq.getLoginId()) || !StringUtils.hasLength(joinReq.getLoginPw())){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        // 중복 로그인 아이디가 있으면
+        if(memberService.find(joinReq.getLoginId()) != null){
+            return new ResponseEntity<>(HttpStatus.CONFLICT); // 중복 아이디가 있으면 상태 코드 409를 리턴
         }
 
         accountHelper.join(joinReq);

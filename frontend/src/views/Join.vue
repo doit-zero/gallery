@@ -17,11 +17,28 @@ const router = useRouter();
 
 // 회원가입 데이터 제출
 const submit = async () => {
+  if(!state.form.name?.trim()){
+    window.alert("이름을 입력해주세요");
+    document.getElementById("name")?.focus();
+    return;
+  } else if(!state.form.loginId?.trim()) {
+    window.alert("아이디를 입력해주세요");
+    document.getElementById("loginId")?.focus();
+    return;
+  } else if(!state.form.loginPw?.trim()){
+    window.alert("패스워드를 입력해주세요");
+    document.getElementById("loginPw")?.focus();
+    return;
+  }
+
   const res = await join(state.form);
 
   if(res.status === 200){
     window.alert("회원가입을 완료했습니다.");
     await router.push("/"); // 회원 가입 성공시 메인 화면으로 이동
+  } else if(res.status === 409){
+    window.alert("이미 사용 중인 이메일입니다. 다른 값을 입력해주세요");
+    document.getElementById("loginId")?.focus();
   }
 }
 </script>
@@ -36,11 +53,11 @@ const submit = async () => {
           <label for="name">이름</label>
         </div>
         <div class="form-floating">
-          <input type="text" class="form-control" id="loginId" placeholder="loginId" v-model="state.form.loginId">
+          <input type="email" class="form-control" id="loginId" placeholder="loginId" v-model="state.form.loginId">
           <label for="name">이메일</label>
         </div>
         <div class="form-floating">
-          <input type="text" class="form-control" id="loginPw" placeholder="loginPw" v-model="state.form.loginPw">
+          <input type="password" class="form-control" id="loginPw" placeholder="loginPw" v-model="state.form.loginPw">
           <label for="name">패스워드</label>
         </div>
         <button type="submit" class="w-100 h6 btn py-3 btn-primary">회원가입</button>
