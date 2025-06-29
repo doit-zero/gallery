@@ -13,7 +13,7 @@ public class AccountConstants {
     public static final String REFRESH_TOKEN_NAME = "refreshToken";
 
     // 액세스 토큰 유효 시간(1분)
-    public static final int ACCESS_TOKEN_MINUTES = 1;
+    public static final int ACCESS_TOKEN_MINUTES = 10;
 
     // 리프레시 토큰 유효 시간 (24시간)
     public static final int REFRESH_TOKEN_EXP_MINUTES = 60 * 24;
