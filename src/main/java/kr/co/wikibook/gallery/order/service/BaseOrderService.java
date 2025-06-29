@@ -10,6 +10,8 @@ import kr.co.wikibook.gallery.order.entity.OrderItem;
 import kr.co.wikibook.gallery.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Or;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,9 +28,9 @@ public class BaseOrderService implements OrderService{
 
     // 주문 목록 조회
     @Override
-    public List<OrderRead> findAll(Integer memberId) {
-        List<Order> orders = orderRepository.findAllByMemberIdOrderByIdDesc(memberId);
-        return orders.stream().map(Order::toRead).toList();
+    public Page<OrderRead> findAll(Integer memberId, Pageable pageable) {
+        Page<Order> orders = orderRepository.findAllByMemberIdOrderByIdDesc(memberId,pageable);
+        return orders.map(o->o.toRead());
     }
 
     // 주문 상세 조회
