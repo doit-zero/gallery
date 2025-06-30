@@ -8,7 +8,7 @@ import kr.co.wikibook.gallery.common.util.HttpUtils;
 import kr.co.wikibook.gallery.common.util.TokenUtils;
 import kr.co.wikibook.gallery.member.dto.AccountJoinRequest;
 import kr.co.wikibook.gallery.member.dto.AccountLoginRequest;
-import kr.co.wikibook.gallery.member.helper.AccountHelper;
+import kr.co.wikibook.gallery.account.helper.AccountHelper;
 import kr.co.wikibook.gallery.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -84,10 +84,9 @@ public class AccountController {
              Integer memberId = (Integer) tokenBody.get(AccountConstants.MEMBER_ID_NAME);
 
              // 액세스 토큰 발급
-            TokenUtils.generate(AccountConstants.ACCESS_TOKEN_NAME,AccountConstants.MEMBER_ID_NAME,memberId,AccountConstants.ACCESS_TOKEN_MINUTES);
+            accessToken = TokenUtils.generate(AccountConstants.ACCESS_TOKEN_NAME, AccountConstants.MEMBER_ID_NAME, memberId, AccountConstants.ACCESS_TOKEN_MINUTES);
         }
-        return new ResponseEntity<>(accessToken,HttpStatus.OK);
 
-        //
+        return new ResponseEntity<>(accessToken,HttpStatus.OK);
     }
 }
