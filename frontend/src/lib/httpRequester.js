@@ -13,6 +13,7 @@ instance.interceptors.response.use((res) => {
             break;
         case 401:
             const config = err.config;
+
             if(config.retried){
                 window.alert("권한이 없습니다.");
                 window.location.replace("/");
@@ -38,7 +39,7 @@ instance.interceptors.response.use((res) => {
 
             // 재요청
             return instance(config);
-            break;
+
         case 500:
             window.alert("오류가 있습니다. 관리자에게 문의해주세요.");
             break;
