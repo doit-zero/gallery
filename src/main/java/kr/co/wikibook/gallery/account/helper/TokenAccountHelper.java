@@ -9,7 +9,6 @@ import kr.co.wikibook.gallery.common.util.TokenUtils;
 import kr.co.wikibook.gallery.member.dto.AccountJoinRequest;
 import kr.co.wikibook.gallery.member.dto.AccountLoginRequest;
 import kr.co.wikibook.gallery.member.entity.Member;
-import kr.co.wikibook.gallery.member.helper.AccountHelper;
 import kr.co.wikibook.gallery.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;

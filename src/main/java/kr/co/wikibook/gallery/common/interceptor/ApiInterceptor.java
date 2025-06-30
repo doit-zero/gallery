@@ -2,7 +2,7 @@ package kr.co.wikibook.gallery.common.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import kr.co.wikibook.gallery.member.helper.AccountHelper;
+import kr.co.wikibook.gallery.account.helper.AccountHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

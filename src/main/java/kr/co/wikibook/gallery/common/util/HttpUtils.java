@@ -63,7 +63,6 @@ public class HttpUtils {
     // 토큰 조회
     public static String getBearerToken(HttpServletRequest req){
         String authorization = req.getHeader("Authorization");
-
         if(authorization != null){
             return authorization.replace("Bearer ","").trim();
         }

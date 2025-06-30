@@ -6,11 +6,10 @@ import kr.co.wikibook.gallery.cart.dto.CartRequest;
 import kr.co.wikibook.gallery.cart.service.CartService;
 import kr.co.wikibook.gallery.item.dto.ItemRead;
 import kr.co.wikibook.gallery.item.service.ItemService;
-import kr.co.wikibook.gallery.member.helper.AccountHelper;
+import kr.co.wikibook.gallery.account.helper.AccountHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
