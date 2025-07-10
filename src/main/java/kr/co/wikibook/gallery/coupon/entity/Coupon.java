@@ -1,45 +1,50 @@
 package kr.co.wikibook.gallery.coupon.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
+import static kr.co.wikibook.gallery.coupon.entity.DiscountType.FIXED;
+
 @Entity
 @Getter
+@Table(name = "coupon")
+@Builder
 public class Coupon {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(length = 50,nullable = false)
     private String code;
 
-    @Column
+    @Column(length = 100,nullable = false)
     private String name;
 
-    @Column
-    private DiscountType discount_type;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private DiscountType discountType = FIXED;
 
     @Column
-    private int discount_value;
+    private int discountValue;
 
     @Column
-    private int total_quantity;
+    private int totalQuantity;
 
     @Column
-    private int issued_quantity;
+    private int issuedQuantity = 0;
 
     @Column
-    private LocalDateTime valid_from;
+    private LocalDateTime validFrom;
 
     @Column
-    private LocalDateTime valid_to;
+    private LocalDateTime validTo;
 
     @Column
     @CreationTimestamp
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 }
