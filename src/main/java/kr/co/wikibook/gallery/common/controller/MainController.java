@@ -16,7 +16,7 @@ public class MainController {
      *     "/",                         // 루트 요청
      *     "{path:[^.]*}",              // `/abc` 처럼 .이 없는 단일 경로
      *     "{path1:[^.]*}/{path2:[^.]*}" // `/abc/def` 처럼 .이 없는 2단계 경로
-     * }) 
+     * })
      * */
     @GetMapping(value = {"/","{path:[^.]*}","{path1:[^.]*}/{path2:[^.]*}"})
     public String home(){
