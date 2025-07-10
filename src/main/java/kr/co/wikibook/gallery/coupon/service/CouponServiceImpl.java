@@ -16,8 +16,8 @@ public class CouponServiceImpl implements CouponService{
     @Override
     public Coupon issue(CouponCreateRequest request) {
         Coupon coupon = request.toCouponEntity();
-        couponRepository.save(coupon);
-        return coupon;
+        Coupon savedCoupon = couponRepository.save(coupon);
+        return savedCoupon;
     }
 
     @Override
