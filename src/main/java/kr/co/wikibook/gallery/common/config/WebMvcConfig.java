@@ -15,6 +15,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(apiInterceptor) // 메서드에 적용할 인터셉터 지정
                 .addPathPatterns("/v1/api/**")  // 인터셉터를 적용할 URL 경로를 지정
-                .excludePathPatterns("/v1/api/account/**","/v1/api/items/**"); // 인터셉터를 적용하지 않을 URL 경로를 지정
+                .excludePathPatterns("/v1/api/account/**","/v1/api/items/**","/v1/api/coupons/**"); // 인터셉터를 적용하지 않을 URL 경로를 지정
     }
 }
