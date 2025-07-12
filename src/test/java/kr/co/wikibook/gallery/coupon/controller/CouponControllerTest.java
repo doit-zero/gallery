@@ -16,15 +16,18 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CouponController.class)
 @ContextConfiguration(classes = { CouponController.class })  // WebMvcConfig를 제외
+@DisplayName("쿠폰 컨트롤러 단위 테스트")
 class CouponControllerTest {
 
     @Autowired
@@ -37,8 +40,8 @@ class CouponControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("쿠폰 생성 테스트")
-    void shouldReturnCouponCodeWhenIssueSuccess() throws Exception {
+    @DisplayName("쿠폰 발급 테스트")
+    void shouldReturnCouponCode_WhenIssueSuccess() throws Exception {
         // given
         CouponCreateRequest request = new CouponCreateRequest();
         request.setName("여름특가쿠폰");
@@ -67,5 +70,48 @@ class CouponControllerTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("SUMM1234ABCD"));
+    }
+
+    @Test
+    @DisplayName("발급된 전체 쿠폰 조회 테스트")
+    void shouldReturnCouponList_WhenFindAllSuccess() throws Exception {
+        // given
+        Coupon coupon1 = Coupon.builder()
+                .id(1)
+                .code("FIXED101alr1")
+                .name("10% 할인 쿠폰")
+                .discountType(DiscountType.FIXED)
+                .discountValue(1000)
+                .totalQuantity(100)
+                .issuedQuantity(10)
+                .validFrom(LocalDateTime.now().minusDays(1))
+                .validTo(LocalDateTime.now().plusDays(7))
+                .build();
+
+        Coupon coupon2 = Coupon.builder()
+                .id(2)
+                .code("SHIPFREE1234")
+                .name("무료배송 쿠폰")
+                .discountType(DiscountType.PERCENT)
+                .discountValue(0)
+                .totalQuantity(50)
+                .issuedQuantity(5)
+                .validFrom(LocalDateTime.now().minusDays(2))
+                .validTo(LocalDateTime.now().plusDays(5))
+                .build();
+
+        List<Coupon> mockResult = List.of(coupon1,coupon2);
+
+        when(couponService.findAll()).thenReturn(mockResult);
+
+        // when & then
+        mockMvc.perform(get("/v1/api/coupons")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(mockResult)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(2))
+                .andExpect(jsonPath("$[0].code").value("FIXED101alr1"))
+                .andExpect(jsonPath("$[1].code").value("SHIPFREE1234"));
+
     }
 }
