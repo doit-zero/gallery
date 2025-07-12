@@ -18,7 +18,7 @@ public class CouponController {
     @PostMapping("/api/coupons")
     public ResponseEntity<?> issue(@RequestBody CouponCreateRequest request){
         Coupon coupon = couponService.issue(request);
-        return new ResponseEntity<>(coupon.getCode(),HttpStatus.OK);
+        return new ResponseEntity<>(coupon.getCode(),HttpStatus.CREATED);
     }
 
     @GetMapping("/api/coupons")

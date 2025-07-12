@@ -1,19 +1,21 @@
 package kr.co.wikibook.gallery.coupon.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
 import static kr.co.wikibook.gallery.coupon.entity.DiscountType.FIXED;
+import static lombok.AccessLevel.*;
 
 @Entity
 @Getter
 @Table(name = "coupon")
 @Builder
+@NoArgsConstructor(access = PROTECTED)
+@AllArgsConstructor
 public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
