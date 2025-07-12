@@ -15,12 +15,15 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@DisplayName("쿠폰 서비스 단위 테스트")
 class CouponServiceImplTest {
     @Mock
     private CouponRepository couponRepository;
@@ -30,7 +33,7 @@ class CouponServiceImplTest {
 
     @Test
     @DisplayName("쿠폰 발급 테스트")
-    void shouldReturnCouponWhenIssueSuccess() {
+    void shouldReturnCoupon_WhenIssueSuccess() {
         // given
         CouponCreateRequest request = new CouponCreateRequest();
         request.setName("여름특가쿠폰");
@@ -59,4 +62,45 @@ class CouponServiceImplTest {
         // then
         assertEquals(savedCoupon,fakeCoupon);
     }
+
+    @Test
+    @DisplayName("발급된 전체 쿠폰 조회 테스트")
+    void shouldReturnCouponList_WhenFindAllSuccess(){
+        // given
+        Coupon coupon1 = Coupon.builder()
+                .id(1)
+                .code("FIXED101alr1")
+                .name("10% 할인 쿠폰")
+                .discountType(DiscountType.FIXED)
+                .discountValue(1000)
+                .totalQuantity(100)
+                .issuedQuantity(10)
+                .validFrom(LocalDateTime.now().minusDays(1))
+                .validTo(LocalDateTime.now().plusDays(7))
+                .build();
+
+        Coupon coupon2 = Coupon.builder()
+                .id(2)
+                .code("SHIPFREE1234")
+                .name("무료배송 쿠폰")
+                .discountType(DiscountType.PERCENT)
+                .discountValue(0)
+                .totalQuantity(50)
+                .issuedQuantity(5)
+                .validFrom(LocalDateTime.now().minusDays(2))
+                .validTo(LocalDateTime.now().plusDays(5))
+                .build();
+
+        List<Coupon> mockResult = List.of(coupon1,coupon2);
+        when(couponRepository.findAll()).thenReturn(mockResult);
+
+        // when
+        List<Coupon> result = couponService.findAll();
+
+        // then
+        assertEquals(2, result.size());
+        assertEquals("FIXED101alr1", result.get(0).getCode());
+        verify(couponRepository, times(1)).findAll();
+    }
+
 }
