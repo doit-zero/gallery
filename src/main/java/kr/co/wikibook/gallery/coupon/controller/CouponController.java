@@ -6,10 +6,9 @@ import kr.co.wikibook.gallery.coupon.service.CouponService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1")
@@ -20,5 +19,11 @@ public class CouponController {
     public ResponseEntity<?> issue(@RequestBody CouponCreateRequest request){
         Coupon coupon = couponService.issue(request);
         return new ResponseEntity<>(coupon.getCode(),HttpStatus.OK);
+    }
+
+    @GetMapping("/api/coupons")
+    public ResponseEntity<?> findAll(){
+        List<Coupon> couponList = couponService.findAll();
+        return new ResponseEntity<>(couponList,HttpStatus.OK);
     }
 }
