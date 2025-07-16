@@ -39,7 +39,7 @@ public class CouponIntegrationTest {
         request.setValidTo(LocalDateTime.of(2025, 7, 31, 23, 59));
 
         // when
-        Coupon issuedCoupon = couponService.issue(request);
+        Coupon issuedCoupon = couponService.create(request);
 
         // then
         List<Coupon> couponList = couponRepository.findAll();

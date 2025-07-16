@@ -3,6 +3,7 @@ package kr.co.wikibook.gallery.coupon.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.co.wikibook.gallery.common.config.WebMvcConfig;
 import kr.co.wikibook.gallery.coupon.dto.CouponCreateRequest;
+import kr.co.wikibook.gallery.coupon.dto.CouponResponse;
 import kr.co.wikibook.gallery.coupon.entity.Coupon;
 import kr.co.wikibook.gallery.coupon.entity.DiscountType;
 import kr.co.wikibook.gallery.coupon.service.CouponService;
@@ -62,7 +63,7 @@ class CouponControllerTest {
                 .validTo(request.getValidTo())
                 .build();
 
-        when(couponService.issue(any(CouponCreateRequest.class))).thenReturn(fakeCoupon);
+        when(couponService.create(any(CouponCreateRequest.class))).thenReturn(fakeCoupon);
 
         // when & then
         mockMvc.perform(post("/v1/api/coupons")
@@ -100,7 +101,7 @@ class CouponControllerTest {
                 .validTo(LocalDateTime.now().plusDays(5))
                 .build();
 
-        List<Coupon> mockResult = List.of(coupon1,coupon2);
+        List<CouponResponse> mockResult = List.of(coupon1.toCouponResponse(),coupon2.toCouponResponse());
 
         when(couponService.findAll()).thenReturn(mockResult);
 

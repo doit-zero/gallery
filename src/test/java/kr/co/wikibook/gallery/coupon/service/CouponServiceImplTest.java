@@ -1,6 +1,7 @@
 package kr.co.wikibook.gallery.coupon.service;
 
 import kr.co.wikibook.gallery.coupon.dto.CouponCreateRequest;
+import kr.co.wikibook.gallery.coupon.dto.CouponResponse;
 import kr.co.wikibook.gallery.coupon.entity.Coupon;
 import kr.co.wikibook.gallery.coupon.entity.DiscountType;
 import kr.co.wikibook.gallery.coupon.respository.CouponRepository;
@@ -32,7 +33,7 @@ class CouponServiceImplTest {
     private CouponServiceImpl couponService;
 
     @Test
-    @DisplayName("쿠폰 발급 테스트")
+    @DisplayName("쿠폰 생성 테스트")
     void shouldReturnCoupon_WhenIssueSuccess() {
         // given
         CouponCreateRequest request = new CouponCreateRequest();
@@ -57,14 +58,14 @@ class CouponServiceImplTest {
         when(couponRepository.save(any(Coupon.class))).thenReturn(fakeCoupon);
 
         // when
-        Coupon savedCoupon = couponService.issue(request);
+        Coupon savedCoupon = couponService.create(request);
 
         // then
         assertEquals(savedCoupon,fakeCoupon);
     }
 
     @Test
-    @DisplayName("발급된 전체 쿠폰 조회 테스트")
+    @DisplayName("생성된 전체 쿠폰 조회 테스트")
     void shouldReturnCouponList_WhenFindAllSuccess(){
         // given
         Coupon coupon1 = Coupon.builder()
@@ -95,7 +96,7 @@ class CouponServiceImplTest {
         when(couponRepository.findAll()).thenReturn(mockResult);
 
         // when
-        List<Coupon> result = couponService.findAll();
+        List<CouponResponse> result = couponService.findAll();
 
         // then
         assertEquals(2, result.size());
