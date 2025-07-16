@@ -7,13 +7,13 @@ import {getItems} from "@/services/itemService.js";
 const state = reactive({
   item: []
 });
+
 // 커스텀 생성 훅 onCreated 훅을 사용하여 라이프사이클 훅 중에 가장 먼저 실행되도록 함
 (async function onCreated() {
   const res =  await getItems();
 
   if(res.status === 200){
     state.item = res.data;
-    console.log(res.data);
   }
 })();
 </script>
