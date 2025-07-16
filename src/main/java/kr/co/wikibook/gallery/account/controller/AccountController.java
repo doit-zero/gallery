@@ -28,10 +28,8 @@ public class AccountController {
 
     @PostMapping("/api/account/join")
     public ResponseEntity<?> join(@RequestBody AccountJoinRequest joinReq){
-        // 입력값이 하나라도 비어있다면 BAD_REQUEST로 전달
-        System.out.println(joinReq.toString());
         if(!StringUtils.hasLength(joinReq.getName()) || !StringUtils.hasLength(joinReq.getLoginId()) || !StringUtils.hasLength(joinReq.getLoginPw())){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 입력값이 하나라도 비어있다면 BAD_REQUEST 로 전달 400
         }
 
         // 중복 로그인 아이디가 있으면
