@@ -37,6 +37,7 @@ const logoutAccount = async () => {
           <a @click="logoutAccount">로그아웃</a>
           <router-link to="/orders">주문 내역</router-link>
           <router-link to="/cart">장바구니</router-link>
+          <router-link to="/coupons">쿠폰</router-link>
         </template>
       </div>
     </div>
