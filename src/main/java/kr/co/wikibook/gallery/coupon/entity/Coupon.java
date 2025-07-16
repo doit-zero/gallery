@@ -1,6 +1,7 @@
 package kr.co.wikibook.gallery.coupon.entity;
 
 import jakarta.persistence.*;
+import kr.co.wikibook.gallery.coupon.dto.CouponResponse;
 import lombok.*;
 import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,13 +33,13 @@ public class Coupon {
     private DiscountType discountType = FIXED;
 
     @Column
-    private int discountValue;
+    private Integer discountValue;
 
     @Column
-    private int totalQuantity;
+    private Integer totalQuantity;
 
     @Column
-    private int issuedQuantity = 0;
+    private Integer issuedQuantity = 0;
 
     @Column
     private LocalDateTime validFrom;
@@ -49,4 +50,15 @@ public class Coupon {
     @Column
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    public CouponResponse toCouponResponse(){
+        return CouponResponse.builder()
+                .code(code)
+                .name(name)
+                .discountType(discountType)
+                .discountValue(discountValue)
+                .validFrom(validFrom)
+                .validTo(validTo)
+                .build();
+    };
 }
