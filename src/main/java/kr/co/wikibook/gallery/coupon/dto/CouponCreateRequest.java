@@ -45,8 +45,6 @@ public class CouponCreateRequest {
                 .build();
     }
 
-    ;
-
     private String generateCode() {
         String base = name != null ? name.replaceAll("[^A-Za-z0-9]", "").toUpperCase() : "COUPON";
         String prefix = base.length() > 4 ? base.substring(0, 4) : String.format("%-4s", base).replace(' ', 'X');
