@@ -19,4 +19,5 @@ public class CouponResponse {
     private Integer discountValue;
     private LocalDateTime validFrom;
     private LocalDateTime validTo;
+    private Boolean isIssued;
 }
