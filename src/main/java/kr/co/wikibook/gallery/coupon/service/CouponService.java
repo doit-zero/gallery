@@ -11,5 +11,5 @@ public interface CouponService {
     Coupon create(CouponCreateRequest request);
 
     // 사용가능한 쿠폰들 모두 가져오기
-    List<CouponResponse> findAll();
+    List<CouponResponse> findAll(Integer memberId);
 }
