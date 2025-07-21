@@ -12,6 +12,7 @@ const props = defineProps({
     discountPer: Number,
     validFrom: Date,
     validTo: Date,
+    isIssued: Boolean,
   }
 });
 
@@ -60,7 +61,8 @@ const issue = async () => {
         유효기간: {{ formatDate(coupon.validFrom) }} ~ {{ formatDate(coupon.validTo) }}
       </p>
       <div class="d-flex justify-content-end">
-        <button class="btn btn-primary btn-sm" @click="issue()">쿠폰 발급</button>
+        <button class="btn btn-primary btn-sm" :disabled="coupon.isIssued" @click="issue()">
+          {{ coupon.isIssued ? '발급 됨' : '쿠폰 발급' }}</button>
       </div>
     </div>
   </div>
