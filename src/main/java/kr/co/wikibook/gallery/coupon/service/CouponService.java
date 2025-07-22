@@ -10,6 +10,9 @@ public interface CouponService {
     // 쿠폰 생성
     Coupon create(CouponCreateRequest request);
 
+    // 쿠폰 발급
+    Coupon issue(Integer memberId,Integer couponId);
+
     // 사용가능한 쿠폰들 모두 가져오기
     List<CouponResponse> findAll(Integer memberId);
 }

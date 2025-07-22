@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 public class CouponResponse {
+    private Integer id;
     private String code;
     private String name;
     private DiscountType discountType;

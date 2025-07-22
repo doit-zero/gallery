@@ -3,6 +3,7 @@ package kr.co.wikibook.gallery.coupon.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import kr.co.wikibook.gallery.account.helper.AccountHelper;
 import kr.co.wikibook.gallery.common.interceptor.ApiInterceptor;
+import kr.co.wikibook.gallery.coupon.CouponConstant;
 import kr.co.wikibook.gallery.coupon.dto.CouponCreateRequest;
 import kr.co.wikibook.gallery.coupon.dto.CouponResponse;
 import kr.co.wikibook.gallery.coupon.entity.Coupon;
@@ -26,6 +27,13 @@ public class CouponController {
         return new ResponseEntity<>(coupon.getCode(),HttpStatus.CREATED);
     }
 
+    @PostMapping("/api/coupons/{id}")
+    public ResponseEntity<?> issue(HttpServletRequest request,@PathVariable("id") Integer couponId){
+        Integer memberId = accountHelper.getMemberId(request);
+        Coupon issue = couponService.issue(memberId, couponId);
+        return new ResponseEntity<>(CouponConstant.ISSUE_SUCCESS,HttpStatus.OK);
+    }
+
     /**
      * 발급된 쿠폰이 없다면 [] 반환함
      * */
@@ -35,4 +43,5 @@ public class CouponController {
         List<CouponResponse> couponList = couponService.findAll(memberId);
         return new ResponseEntity<>(couponList,HttpStatus.OK);
     }
+
 }

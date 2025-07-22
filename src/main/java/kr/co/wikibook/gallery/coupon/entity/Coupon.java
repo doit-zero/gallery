@@ -1,6 +1,7 @@
 package kr.co.wikibook.gallery.coupon.entity;
 
 import jakarta.persistence.*;
+import kr.co.wikibook.gallery.coupon.CouponConstant;
 import kr.co.wikibook.gallery.coupon.dto.CouponResponse;
 import lombok.*;
 import org.checkerframework.checker.units.qual.C;
@@ -53,6 +54,7 @@ public class Coupon {
 
     public CouponResponse toCouponResponse(){
         return CouponResponse.builder()
+                .id(id)
                 .code(code)
                 .name(name)
                 .discountType(discountType)
@@ -61,4 +63,15 @@ public class Coupon {
                 .validTo(validTo)
                 .build();
     };
+
+    public void updateToTalQuantity(){
+        if(this.totalQuantity == 0){
+            throw new RuntimeException(CouponConstant.COUPON_EXHUASTION);
+        }
+        totalQuantity = totalQuantity - 1;
+    }
+
+    public void updateIssuedQuantity(){
+        issuedQuantity = issuedQuantity + 1;
+    }
 }

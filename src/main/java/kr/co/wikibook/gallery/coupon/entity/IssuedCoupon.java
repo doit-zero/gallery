@@ -24,4 +24,14 @@ public class IssuedCoupon {
 
     @Column
     private Integer couponId;
+
+
+    public IssuedCoupon(Integer memberId,Integer couponId){
+        this.memberId = memberId;
+        this.couponId = couponId;
+    }
+
+    public IssuedCoupon() {
+
+    }
 }
