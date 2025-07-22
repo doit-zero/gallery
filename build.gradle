@@ -27,6 +27,8 @@ dependencies {
     // MySQL 드라이버
     implementation 'mysql:mysql-connector-java:8.0.33'
 
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.3'
+
     // Lombok (자동 Getter/Setter 등)
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
