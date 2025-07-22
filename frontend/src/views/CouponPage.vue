@@ -2,7 +2,6 @@
 
 // 반응형 상태
 import {reactive} from "vue";
-import Card from "@/views/Card.vue";
 import Coupon from "@/views/Coupon.vue";
 import {getCoupons} from "@/services/couponService.js";
 

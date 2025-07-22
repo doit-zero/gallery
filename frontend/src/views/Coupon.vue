@@ -1,10 +1,12 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { useAccountStore } from "@/stores/account.js";
+import {issueCoupon} from "@/services/couponService.js";
 
 // props 정의
 const props = defineProps({
   coupon: {
+    id: Number,
     code: String,
     name: String,
     discountType: String,
@@ -30,16 +32,18 @@ function formatDate(date) {
 }
 
 // 쿠폰 발급
-const issue = async () => {
+const issue = async (id) => {
   if (!accountStore.loggedIn) {
     if (window.confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?")) {
       await router.push("/login");
     }
     return;
   }
-
-  // 여기에 발급 API 호출 또는 처리 로직 추가
-  alert(`쿠폰 '${coupon.name}'이(가) 발급되었습니다.`);
+  console.log(id);
+  const res = await issueCoupon(id);
+  if(res.status === 200){
+    await router.push("/coupons");
+  }
 };
 </script>
 
@@ -61,7 +65,7 @@ const issue = async () => {
         유효기간: {{ formatDate(coupon.validFrom) }} ~ {{ formatDate(coupon.validTo) }}
       </p>
       <div class="d-flex justify-content-end">
-        <button class="btn btn-primary btn-sm" :disabled="coupon.isIssued" @click="issue()">
+        <button class="btn btn-primary btn-sm" :disabled="coupon.isIssued" @click="issue(coupon.id)">
           {{ coupon.isIssued ? '발급 됨' : '쿠폰 발급' }}</button>
       </div>
     </div>
