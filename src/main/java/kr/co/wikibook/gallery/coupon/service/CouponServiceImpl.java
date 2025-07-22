@@ -10,6 +10,7 @@ import kr.co.wikibook.gallery.coupon.respository.CouponRepository;
 import kr.co.wikibook.gallery.coupon.respository.IssuedCouponRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,11 @@ public class CouponServiceImpl implements CouponService{
         return savedCoupon;
     }
 
-    // 회원 쿠폰 발급 요청
+    // 쿠폰 발급 요청
     @Override
+    @Transactional
     public Coupon issue(Integer memberId, Integer couponId) {
-        Coupon coupon = couponRepository.findById(couponId)
+        Coupon coupon = couponRepository.findByIdForUpdate(couponId)
                 .orElseThrow(() -> new EntityNotFoundException(COUPON_NOT_FOUND + "couponId: " + couponId));
 
         if(coupon.getTotalQuantity() != null){
@@ -62,7 +64,7 @@ public class CouponServiceImpl implements CouponService{
             for (Coupon coupon : couponList) {
                 CouponResponse couponResponse = coupon.toCouponResponse();
 
-                // 발급된 쿠폰인지 확인
+                // 발급 받은 쿠폰인지 확인
                 if (issuedCouponIds.contains(coupon.getId())) {
                     couponResponse.setIsIssued(true);
                 } else {
