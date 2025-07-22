@@ -48,6 +48,7 @@ const submit = async () => {
   switch (res.status) {
     case 200:
       accountStore.setAccessToken(res.data);
+      accountStore.setLoggedIn(true);
       await router.push("/");
       break;
     case 404:
