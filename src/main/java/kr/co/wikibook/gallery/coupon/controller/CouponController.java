@@ -35,7 +35,7 @@ public class CouponController {
     }
 
     /**
-     * 발급된 쿠폰이 없다면 [] 반환함
+     * 만들어진 쿠폰이 없다면 [] 반환
      * */
     @GetMapping("/api/coupons")
     public ResponseEntity<?> findAll(HttpServletRequest request){
